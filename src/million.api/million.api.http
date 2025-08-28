@@ -1,0 +1,59 @@
+@million.api_HostAddress = http://localhost:5005
+
+GET {{ million.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+
+POST  {{ million.api_HostAddress }}/api/property
+Content-Type: application/json
+Accept: application/json
+
+{
+  "ownerId":"68b0c95f2b0f2e5e988f55f4",
+  "name": "Casa blanca",
+  "address": "calle de la pesadilla elm",
+  "price": 12000000,
+  "codeInternal": "999",
+  "year": "2010"
+}
+
+
+###
+POST  {{ million.api_HostAddress }}/api/owner
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Juan David",
+  "address": "calle melendez",
+  "birtday": "02-09-1996",
+  "photo": "999"
+}
+
+
+###
+
+POST  {{ million.api_HostAddress }}/api/property/createdPropertyImg
+Content-Type: application/json
+Accept: application/json
+
+{
+  "propertyId": "68b0cac487382bcef4797eba",
+  "file": "calle melendez"
+}
+
+###
+
+POST  {{ million.api_HostAddress }}/api/property/createdPropertyTrace
+Content-Type: application/json
+Accept: application/json
+
+{
+  "propertyId": "68b0cac487382bcef4797eba",
+  "name": "calle melendez",
+  "value": "value",
+  "dateSale":"2025-08-28T10:15:00",
+  "tax": 1.3
+}
