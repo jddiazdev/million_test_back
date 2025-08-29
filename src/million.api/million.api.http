@@ -1,22 +1,22 @@
 @million.api_HostAddress = http://localhost:5005
 
-GET {{ million.api_HostAddress}}/weatherforecast/
+GET {{ million.api_HostAddress}}/api/property/filter?minPrice=12000000&maxPrice=15000000
 Accept: application/json
 
+
+
 ###
-
-
 POST  {{ million.api_HostAddress }}/api/property
 Content-Type: application/json
 Accept: application/json
 
 {
   "ownerId":"68b0c95f2b0f2e5e988f55f4",
-  "name": "Casa blanca",
-  "address": "calle de la pesadilla elm",
-  "price": 12000000,
-  "codeInternal": "999",
-  "year": "2010"
+  "name": "Cali ",
+  "address": "sucursal del cielo",
+  "price": 1400,
+  "codeInternal": "111",
+  "year": "2020"
 }
 
 
@@ -40,20 +40,19 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "propertyId": "68b0cac487382bcef4797eba",
-  "file": "calle melendez"
+  "propertyId": "68b1ee10e344a9bbbf767f16",
+  "file": "melendez tour"
 }
 
 ###
-
 POST  {{ million.api_HostAddress }}/api/property/createdPropertyTrace
 Content-Type: application/json
 Accept: application/json
 
 {
   "propertyId": "68b0cac487382bcef4797eba",
-  "name": "calle melendez",
-  "value": "value",
+  "name": " melendez 2",
+  "value": "value 2",
   "dateSale":"2025-08-28T10:15:00",
-  "tax": 1.3
+  "tax": 1.5
 }

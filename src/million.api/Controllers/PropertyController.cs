@@ -16,12 +16,26 @@ public class PropertyController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(string id)
+    [HttpGet("filter")]
+    public async Task<IActionResult> GetFiltered(
+        [FromQuery] string? name,
+        [FromQuery] string? address,
+        [FromQuery] decimal? minPrice,
+        [FromQuery] decimal? maxPrice)
     {
-        var property = await _service.GetPropertyByIdAsync(id);
-        if (property == null) return NotFound();
-        return Ok(property);
+
+        var filter = new PropertyFull
+        {
+            name = name,
+            address = address,
+            minPrice = minPrice,
+            maxPrice = maxPrice
+        };
+
+        var properties = await _service.GetFilteredPropertiesAsync(filter);
+        return Ok(properties);
+
+
     }
 
 

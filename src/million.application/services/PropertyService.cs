@@ -17,13 +17,13 @@ public class PropertyService
 
   public Task AddPropertyAsync(Property property) => _repository.addPAsync(property);
 
-  public Task<Property?> GetPropertyByIdAsync(string id) => _repository.GetByIdAsync(id);
 
 
   public Task AddPropertyImg(PropertyImage propertyImage) => _repository.addPropertyImg(propertyImage);
 
   public Task AddPropertyTrace(PropertyTrace propertyTrace) => _repository.addPropertyTrace(propertyTrace);
-
+  
+  public Task<List<PropertyFull>> GetFilteredPropertiesAsync(PropertyFull filter) => _repository.GetFilteredPropertiesAsync(filter);
 
 
 }
