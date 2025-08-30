@@ -12,6 +12,7 @@ public class PropertyRepository : IPropertyRepository
   private readonly IMongoCollection<Property> _collection;
   private readonly IMongoCollection<PropertyImage> _collectionPropertyImg;
   private readonly IMongoCollection<PropertyTrace> _collectionPropertyTrance;
+  private readonly IMongoCollection<PropertyDetail> _collectionPropertyDetail;
 
 
   public PropertyRepository(IMongoDatabase database)
@@ -19,6 +20,7 @@ public class PropertyRepository : IPropertyRepository
     _collection = database.GetCollection<Property>("properties");
     _collectionPropertyImg = database.GetCollection<PropertyImage>("propertyImages");
     _collectionPropertyTrance = database.GetCollection<PropertyTrace>("propertyTraces");
+    _collectionPropertyDetail = database.GetCollection<PropertyDetail>("propertyDetails");
   }
 
 
@@ -26,6 +28,11 @@ public class PropertyRepository : IPropertyRepository
   public async Task addPAsync(Property property)
   {
     await _collection.InsertOneAsync(property);
+  }
+
+  public async Task addPropertyDetail(PropertyDetail propertyDetail)
+  {
+    await _collectionPropertyDetail.InsertOneAsync(propertyDetail);
   }
 
   public async Task addPropertyImg(PropertyImage propertyImage)
@@ -36,6 +43,34 @@ public class PropertyRepository : IPropertyRepository
   public async Task addPropertyTrace(PropertyTrace propertyTrace)
   {
     await _collectionPropertyTrance.InsertOneAsync(propertyTrace);
+  }
+
+  public async Task<PropertyResponse?> getByIdAsync(string id)
+  {
+    var property = await _collection.Find(x => x.id == id).FirstOrDefaultAsync();
+    if (property == null) return null;
+
+    var images = property != null
+            ? await _collectionPropertyImg.Find(x => x.propertyId == id).ToListAsync()
+            : new List<PropertyImage>();
+
+
+    var traces = property != null
+        ? await _collectionPropertyTrance.Find(x => x.propertyId == id).ToListAsync()
+        : new List<PropertyTrace>();
+
+    var detail = property != null
+        ? await _collectionPropertyDetail.Find(x => x.propertyId == id).FirstOrDefaultAsync()
+        : null;
+
+
+    return new PropertyResponse
+    {
+      property = property,
+      propertyImages = images,
+      propertyTraces = traces,
+      propertyDetail = detail
+    };
   }
 
   public async Task<List<PropertyFull>> GetFilteredPropertiesAsync(PropertyFull filter)

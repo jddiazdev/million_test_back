@@ -1,6 +1,10 @@
 @million.api_HostAddress = http://localhost:5005
 
-GET {{ million.api_HostAddress}}/api/property/filter?minPrice=12000000&maxPrice=15000000
+GET {{ million.api_HostAddress}}/api/property/filter
+Accept: application/json
+
+###
+GET {{ million.api_HostAddress}}/api/property/68b25a3c1b19a9a834c26ca6
 Accept: application/json
 
 
@@ -11,12 +15,12 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "ownerId":"68b0c95f2b0f2e5e988f55f4",
-  "name": "Cali ",
-  "address": "sucursal del cielo",
-  "price": 1400,
-  "codeInternal": "111",
-  "year": "2020"
+  "ownerId":"68b25395d967c420c94e14e2",
+  "name": "Apartamento Céntrico",
+  "address": "Calle Mayor 15, Madrid, 28013",
+  "price": 320000000,
+  "codeInternal": "PROP-002",
+  "year": "2021"
 }
 
 
@@ -26,10 +30,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Juan David",
-  "address": "calle melendez",
-  "birtday": "02-09-1996",
-  "photo": "999"
+  "name": "Joel Vaquero-Almagro",
+  "address": "Av. de los Olivos 45, Sevilla, España",
+  "birtday": "1996-09-02",
+  "photo": "https://avatar.iran.liara.run/public/44"
 }
 
 
@@ -40,8 +44,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "propertyId": "68b1ee10e344a9bbbf767f16",
-  "file": "melendez tour"
+  "propertyId": "68b25a3c1b19a9a834c26ca6",
+  "file": "https://images.unsplash.com/photo-1565145211217-d0f630de0004?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3OTgzMjZ8MHwxfHNlYXJjaHwyfHxob3VzZSUyMGZhY2FkZXxlbnwwfHx8fDE3NTY1MTgyNTN8MA&ixlib=rb-4.1.0&q=85"
 }
 
 ###
@@ -50,9 +54,25 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "propertyId": "68b0cac487382bcef4797eba",
-  "name": " melendez 2",
-  "value": "value 2",
-  "dateSale":"2025-08-28T10:15:00",
-  "tax": 1.5
+  "propertyId": "68b25a3c1b19a9a834c26ca6",
+  "name": "Venta en espera",
+  "value": "Venta en espera",
+  "dateSale":"2022-06-01T10:20:30",
+  "tax": 1.6
+}
+
+
+###
+POST  {{ million.api_HostAddress }}/api/property/createPropertyDetail
+Content-Type: application/json
+Accept: application/json
+
+{
+  "propertyId": "68b25a3c1b19a9a834c26ca6",
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "areaM2": 145,
+  "garage": true,
+  "yearBuilt": 2005,
+  "description": "Casa moderna con jardín y piscina."
 }

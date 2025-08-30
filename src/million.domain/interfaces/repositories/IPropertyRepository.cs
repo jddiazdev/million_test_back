@@ -10,6 +10,9 @@ public interface IPropertyRepository
   Task addPropertyImg(PropertyImage propertyImage);
 
   Task addPropertyTrace(PropertyTrace propertyTrace);
+  Task addPropertyDetail(PropertyDetail propertyDetail);
+
+  Task<PropertyResponse?> getByIdAsync(string id);
 
   Task<List<PropertyFull>> GetFilteredPropertiesAsync(PropertyFull filter);
 

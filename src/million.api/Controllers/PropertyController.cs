@@ -38,6 +38,20 @@ public class PropertyController : ControllerBase
 
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(string id)
+    {
+        var response = await _service.getByIdAsync(id);
+
+        if (response == null)
+        {
+            return NotFound(new { message = $"No se encontró una propiedad con id {id}" });
+        }
+
+        return Ok(response);
+    }
+
+
 
     [HttpPost]
     public async Task<IActionResult> created([FromBody] PropertyDto dto)
@@ -88,6 +102,25 @@ public class PropertyController : ControllerBase
 
         await _service.AddPropertyTrace(propertyTrace);
         return StatusCode(StatusCodes.Status201Created, propertyTrace);
+    }
+
+    [HttpPost("createPropertyDetail")]
+    public async Task<IActionResult> createdPropertyDetail([FromBody] PropertyDetailDto dto)
+    {
+        var propertyDetail = new PropertyDetail
+        {
+            propertyId = dto.propertyId,
+            bedrooms = dto.bedrooms,
+            bathrooms = dto.bathrooms,
+            areaM2 = dto.areaM2,
+            garage = dto.garage,
+            yearBuilt = dto.yearBuilt,
+            description = dto.description
+        };
+
+        await _service.AddPropertyDetail(propertyDetail);
+        return StatusCode(StatusCodes.Status201Created, propertyDetail);
+
     }
 
 }
