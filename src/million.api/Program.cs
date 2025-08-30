@@ -33,6 +33,15 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<ApiResponseFilter>();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+            policy => policy
+                .WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
+});
 
 
 builder.Services.AddScoped<PropertyService>();
@@ -46,6 +55,10 @@ builder.Services.AddControllers();
 // builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+
+app.UseCors("AllowReact");
+
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())

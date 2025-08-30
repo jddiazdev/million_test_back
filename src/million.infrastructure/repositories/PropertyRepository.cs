@@ -45,10 +45,19 @@ public class PropertyRepository : IPropertyRepository
     await _collectionPropertyTrance.InsertOneAsync(propertyTrace);
   }
 
-  public async Task<PropertyResponse?> getByIdAsync(string id)
+  public async Task<PropertyResponse> getByIdAsync(string id)
   {
     var property = await _collection.Find(x => x.id == id).FirstOrDefaultAsync();
-    if (property == null) return null;
+    if (property == null)
+    {
+      return new PropertyResponse
+      {
+        property = null,
+        propertyImages = new List<PropertyImage>(),
+        propertyTraces = new List<PropertyTrace>(),
+        propertyDetail = null
+      };
+    }
 
     var images = property != null
             ? await _collectionPropertyImg.Find(x => x.propertyId == id).ToListAsync()

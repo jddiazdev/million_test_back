@@ -12,7 +12,7 @@ public interface IPropertyRepository
   Task addPropertyTrace(PropertyTrace propertyTrace);
   Task addPropertyDetail(PropertyDetail propertyDetail);
 
-  Task<PropertyResponse?> getByIdAsync(string id);
+  Task<PropertyResponse> getByIdAsync(string id);
 
   Task<List<PropertyFull>> GetFilteredPropertiesAsync(PropertyFull filter);
 

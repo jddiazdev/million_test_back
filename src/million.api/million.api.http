@@ -16,11 +16,11 @@ Accept: application/json
 
 {
   "ownerId":"68b25395d967c420c94e14e2",
-  "name": "Apartamento Céntrico",
-  "address": "Calle Mayor 15, Madrid, 28013",
-  "price": 320000000,
-  "codeInternal": "PROP-002",
-  "year": "2021"
+  "name": "apto 201 rocki Céntrico",
+  "address": "Calle medio 15, Madrid, 28013",
+  "price": 340000000,
+  "codeInternal": "PROP-003",
+  "year": "2022"
 }
 
 
@@ -44,7 +44,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "propertyId": "68b25a3c1b19a9a834c26ca6",
+  "propertyId": "68b28473c45ed1af239e146d",
   "file": "https://images.unsplash.com/photo-1565145211217-d0f630de0004?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3OTgzMjZ8MHwxfHNlYXJjaHwyfHxob3VzZSUyMGZhY2FkZXxlbnwwfHx8fDE3NTY1MTgyNTN8MA&ixlib=rb-4.1.0&q=85"
 }
 
