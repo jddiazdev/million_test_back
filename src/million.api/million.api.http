@@ -4,7 +4,7 @@ GET {{ million.api_HostAddress}}/api/property/filter
 Accept: application/json
 
 ###
-GET {{ million.api_HostAddress}}/api/property/68b25a3c1b19a9a834c26ca6
+GET {{ million.api_HostAddress}}/api/property/68b261f61b19a9a834c26caa
 Accept: application/json
 
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Joel Vaquero-Almagro",
+  "name": "Joel3 Vaquero-Almagro",
   "address": "Av. de los Olivos 45, Sevilla, España",
   "birtday": "1996-09-02",
   "photo": "https://avatar.iran.liara.run/public/44"

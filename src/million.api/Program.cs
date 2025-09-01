@@ -1,8 +1,10 @@
+using Microsoft.Extensions.Options;
 using million.api.Filters;
 using million.api.Middlewares;
 using million.application;
 using million.application.services;
 using million.domain.interfaces;
+using million.infrastructure.persistence;
 using million.infrastructure.repositories;
 using MongoDB.Driver;
 
@@ -12,20 +14,34 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Configuración de Mongo
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDb")
+);
+
+
 builder.Services.AddSingleton<IMongoClient>(sp =>
 {
     var configuration = sp.GetRequiredService<IConfiguration>();
-    var connectionString = configuration.GetSection("MongoDb:ConnectionString").Value;
+    var connectionString = configuration.GetValue<string>("MongoDb:ConnectionString");
+
+    if (string.IsNullOrEmpty(connectionString))
+        throw new InvalidOperationException("MongoDB connection string is not configured.");
+
     return new MongoClient(connectionString);
 });
 
+
 builder.Services.AddScoped<IMongoDatabase>(sp =>
 {
-    var configuration = sp.GetRequiredService<IConfiguration>();
-    var dbName = configuration.GetSection("MongoDb:DatabaseName").Value;
     var client = sp.GetRequiredService<IMongoClient>();
-    return client.GetDatabase(dbName);
+    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+
+    if (string.IsNullOrEmpty(settings.DatabaseName))
+        throw new InvalidOperationException("MongoDB database name is not configured.");
+
+    return client.GetDatabase(settings.DatabaseName);
 });
+
 
 
 builder.Services.AddControllers(options =>

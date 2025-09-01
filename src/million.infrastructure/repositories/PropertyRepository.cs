@@ -1,6 +1,8 @@
 using System;
+using Microsoft.Extensions.Options;
 using million.domain.entities;
 using million.domain.interfaces;
+using million.infrastructure.persistence;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -15,12 +17,12 @@ public class PropertyRepository : IPropertyRepository
   private readonly IMongoCollection<PropertyDetail> _collectionPropertyDetail;
 
 
-  public PropertyRepository(IMongoDatabase database)
+  public PropertyRepository(IMongoDatabase database, IOptions<MongoDbSettings> settings)
   {
-    _collection = database.GetCollection<Property>("properties");
-    _collectionPropertyImg = database.GetCollection<PropertyImage>("propertyImages");
-    _collectionPropertyTrance = database.GetCollection<PropertyTrace>("propertyTraces");
-    _collectionPropertyDetail = database.GetCollection<PropertyDetail>("propertyDetails");
+    _collection = database.GetCollection<Property>(settings.Value.PropertyCollection);
+    _collectionPropertyImg = database.GetCollection<PropertyImage>(settings.Value.PropertyImageCollection);
+    _collectionPropertyTrance = database.GetCollection<PropertyTrace>(settings.Value.PropertyTraceCollection);
+    _collectionPropertyDetail = database.GetCollection<PropertyDetail>(settings.Value.PropertyDetailCollection);
   }
 
 
